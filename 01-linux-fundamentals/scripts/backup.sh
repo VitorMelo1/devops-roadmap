@@ -1,58 +1,39 @@
 #!/bin/bash
-# =============================================================================
-# backup.sh
-# Backs up a source directory to a timestamped destination folder.
+# backup.sh — copia uma pasta com data e hora no nome
+# Para executar: chmod +x backup.sh && ./backup.sh
 #
-# Usage:
-#   ./backup.sh [source_dir] [backup_dir]
-#
-# Defaults:
-#   source_dir  = $HOME
-#   backup_dir  = /tmp/backups
-#
-# Crontab example (every day at 02:00):
-#   0 2 * * * /home/user/scripts/backup.sh /home/user /tmp/backups
-#
-# Part of: devops-roadmap/01-linux-fundamentals
-# =============================================================================
+# Agendar com crontab (todo dia às 02:00):
+#   crontab -e
+#   0 2 * * * /caminho/para/backup.sh
 
-SOURCE=${1:-$HOME}
-BACKUP_ROOT=${2:-/tmp/backups}
+# Variáveis — guardam valores para reutilizar no script
+ORIGEM="/home/vitor"
+DESTINO_BASE="/tmp/backups"
+
+# $(date +formato) formata a data como texto
+# %Y = ano, %m = mês, %d = dia, %H = hora, %M = minuto, %S = segundo
 TIMESTAMP=$(date +%Y-%m-%d_%H-%M-%S)
-BACKUP_PATH="$BACKUP_ROOT/backup_$TIMESTAMP"
 
-# --- Validation ---
-if [ ! -d "$SOURCE" ]; then
-  echo "[ERROR] Source directory not found: $SOURCE"
-  exit 1
-fi
+# Concatena variáveis para montar o caminho completo
+DESTINO="$DESTINO_BASE/backup_$TIMESTAMP"
 
-# --- Create backup destination ---
-mkdir -p "$BACKUP_PATH"
-if [ $? -ne 0 ]; then
-  echo "[ERROR] Could not create backup directory: $BACKUP_PATH"
-  exit 1
-fi
-
-# --- Run backup ---
-echo "[INFO] Starting backup..."
-echo "[INFO] Source    : $SOURCE"
-echo "[INFO] Destination: $BACKUP_PATH"
-echo "[INFO] Timestamp : $TIMESTAMP"
+echo "[INFO] Iniciando backup..."
+echo "[INFO] Origem  : $ORIGEM"
+echo "[INFO] Destino : $DESTINO"
+echo "[INFO] Horário : $TIMESTAMP"
 echo ""
 
-cp -r "$SOURCE/." "$BACKUP_PATH"
+# mkdir cria uma pasta (-p cria as pastas intermediárias se não existirem)
+mkdir -p "$DESTINO"
 
-if [ $? -eq 0 ]; then
-  echo "[SUCCESS] Backup completed: $BACKUP_PATH"
-else
-  echo "[ERROR] Backup failed."
-  exit 1
-fi
+# cp copia arquivos e pastas
+# -r = recursivo (copia subpastas também)
+# "$ORIGEM/." copia o conteúdo da pasta (não a pasta em si)
+cp -r "$ORIGEM/." "$DESTINO"
 
-# --- Cleanup: remove backups older than 7 days ---
-echo ""
-echo "[INFO] Cleaning up backups older than 7 days in $BACKUP_ROOT..."
-find "$BACKUP_ROOT" -maxdepth 1 -type d -name "backup_*" -mtime +7 -exec rm -rf {} \;
-echo "[INFO] Cleanup done."
-echo "[INFO] Finished at: $(date)"
+echo "[OK] Backup salvo em: $DESTINO"
+
+# >> redireciona a saída e acumula no arquivo (não apaga o que já existe)
+echo "$(date) — backup em $DESTINO" >> /tmp/backup.log
+
+echo "[OK] Concluído em: $(date)"

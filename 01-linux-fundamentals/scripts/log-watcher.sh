@@ -1,66 +1,39 @@
 #!/bin/bash
-# =============================================================================
-# log-watcher.sh
-# Scans system logs for recent events and security warnings.
-#
-# Usage:
-#   ./log-watcher.sh           (default: last 10 minutes)
-#   ./log-watcher.sh 30        (last 30 minutes)
-#   ./log-watcher.sh 60        (last 60 minutes)
-#
-# Part of: devops-roadmap/01-linux-fundamentals
-# =============================================================================
+# log-watcher.sh — lê logs recentes do sistema
+# Para executar: chmod +x log-watcher.sh && ./log-watcher.sh
 
-MINUTES=${1:-10}
-SEPARATOR="========================================"
-
-echo "$SEPARATOR"
-echo "  Log Watcher"
-echo "  Scanning last $MINUTES minutes — $(date)"
-echo "$SEPARATOR"
-
-# --- Recent System Events ---
+echo "========================================"
+echo "  Log do Sistema"
+echo "  $(date)"
+echo "========================================"
 echo ""
-echo "📋 Recent System Events (last $MINUTES min)"
-echo "---"
-journalctl --since "$MINUTES minutes ago" --no-pager -q | tail -20
 
-# --- Failed Login Attempts ---
+# journalctl lê os logs do systemd (sistema que gerencia serviços no Linux)
+# --since = a partir de quando ler
+# --no-pager = mostra tudo de uma vez sem pausar
+echo "--- Últimos eventos do sistema (journalctl) ---"
+journalctl --since "10 minutes ago" --no-pager
 echo ""
-echo "🚨 Failed Login Attempts"
-echo "---"
-FAILED=$(journalctl --since "$MINUTES minutes ago" --no-pager -q | grep -i "failed\|invalid\|authentication failure" | tail -10)
-if [ -z "$FAILED" ]; then
-  echo "No failed login attempts found."
-else
-  echo "$FAILED"
-fi
 
-# --- Auth Log (if available) ---
+# tail -n mostra as últimas N linhas de um arquivo
+# /var/log/auth.log registra logins, sudo e autenticações
+echo "--- Últimas 15 linhas do auth.log (tail -n) ---"
+tail -n 15 /var/log/auth.log
 echo ""
-echo "🔐 Auth Log (last 15 lines)"
-echo "---"
-if [ -f /var/log/auth.log ]; then
-  tail -15 /var/log/auth.log
-else
-  echo "auth.log not found — using journalctl:"
-  journalctl -u ssh --since "$MINUTES minutes ago" --no-pager -q | tail -15
-fi
 
-# --- Sudo Usage ---
+# grep busca um padrão de texto dentro de um arquivo
+# pipe (|) passa o resultado para o próximo comando
+echo "--- Tentativas de login com falha (grep + tail) ---"
+grep "Failed password" /var/log/auth.log | tail -n 10
 echo ""
-echo "🛡  Sudo Commands Used"
-echo "---"
-SUDO_USAGE=$(journalctl --since "$MINUTES minutes ago" --no-pager -q | grep "sudo\|COMMAND" | tail -10)
-if [ -z "$SUDO_USAGE" ]; then
-  echo "No sudo usage found."
-else
-  echo "$SUDO_USAGE"
-fi
 
+# grep também funciona para buscar comandos sudo usados
+echo "--- Comandos sudo usados ---"
+grep "sudo" /var/log/auth.log | tail -n 10
 echo ""
-echo "$SEPARATOR"
-echo "  Scan complete. For live monitoring, run:"
+
+echo "========================================"
+echo "  Dica: para monitorar em tempo real use:"
 echo "    tail -f /var/log/auth.log"
 echo "    journalctl -f"
-echo "$SEPARATOR"
+echo "========================================"

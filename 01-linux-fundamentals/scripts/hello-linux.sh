@@ -1,18 +1,22 @@
 #!/bin/bash
-# =============================================================================
-# hello-linux.sh
-# First shell script — prints system info
-# Part of: devops-roadmap/01-linux-fundamentals
-# =============================================================================
+# hello-linux.sh — primeiro script: variáveis e substituição de comandos
+# Para executar: chmod +x hello-linux.sh && ./hello-linux.sh
 
-echo "============================================"
-echo "         Hello, Linux World! 🐧"
-echo "============================================"
+# $(comando) executa o comando e captura a saída como valor
+DATA=$(date)
+USUARIO=$(whoami)
+MAQUINA=$(hostname)
+PASTA=$(pwd)
+
+# Variável de ambiente do sistema (não precisa capturar, já existe)
+echo "========================================"
+echo "  Hello, Linux!"
+echo "========================================"
 echo ""
-echo "  Date     : $(date)"
-echo "  User     : $(whoami)"
-echo "  Hostname : $(hostname)"
-echo "  Directory: $(pwd)"
-echo "  Shell    : $SHELL"
+echo "  Data    : $DATA"
+echo "  Usuário : $USUARIO"
+echo "  Máquina : $MAQUINA"
+echo "  Pasta   : $PASTA"
+echo "  Shell   : $SHELL"
 echo ""
-echo "============================================"
+echo "========================================"
