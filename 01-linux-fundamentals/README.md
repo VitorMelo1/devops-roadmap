@@ -9,19 +9,18 @@
 
 This section covers the foundations every DevOps engineer needs to know about Linux — from boot to production server setup.
 
-| Topic | Key Concepts |
-|-------|-------------|
-| Boot Process | BIOS/UEFI → GRUB → Kernel → Init |
-| Linux Distributions | Debian, Ubuntu, Red Hat, philosophies |
-| Filesystem Hierarchy (FHS) | `/etc`, `/var`, `/home`, `/bin`, `/dev` |
-| File Permissions | `chmod`, `chown`, `chgrp` — symbolic & octal |
-| Package Management | `apt-get`, `apt-cache`, `dpkg` |
-| Shell Scripting | Variables, pipes, redirects, `#!/bin/bash` |
-| Task Automation | `crontab` — scheduling with 5-field syntax |
-| Networking | `ping`, `nslookup`, `ifconfig`, IPv4 vs IPv6 |
-| User & Group Management | `useradd`, `usermod`, `passwd`, `sudo` |
-| Security & Logs | `tail -f`, `journalctl`, `/var/log` |
-| Web Server | Nginx — install, manage, test with `systemctl` |
+| Aula | Topic | Commands |
+|------|-------|----------|
+| 01–02 | Distributions & Boot | BIOS → GRUB → Kernel → Init |
+| 03 | Filesystem (FHS) | `pwd`, `ls -las`, `cd`, `/etc`, `/var/log` |
+| 04 | File Permissions | `chmod`, `chown`, `chgrp` |
+| 05 | Package Management | `apt-get`, `apt-cache`, `dpkg` |
+| 06 | Shell Scripting | `#!/bin/bash`, variables, `$(cmd)`, `\|`, `>`, `>>`, `cat`, `grep`, `sort` |
+| 07 | Task Automation | `crontab -e`, `crontab -l` |
+| 08 | Networking | `ping`, `nslookup`, `ifconfig`, `netstat -ntpl` |
+| 09 | Users & Groups | `useradd`, `usermod`, `passwd`, `su`, `id` |
+| 10 | Security & Logs | `tail`, `tail -f`, `journalctl`, `grep` |
+| 11 | Web Server (Lab) | `systemctl`, `apt-get install nginx`, `netstat` |
 
 ---
 
@@ -51,10 +50,18 @@ chmod +x scripts/*.sh
 ├── README.md          ← you are here
 ├── cheatsheet.md      ← quick command reference for all topics
 └── scripts/
-    ├── hello-linux.sh     ← first shell script (prints system info)
-    ├── backup.sh          ← automated backup — designed for crontab
-    ├── system-monitor.sh  ← disk, memory, uptime, top processes
-    └── log-watcher.sh     ← security log scanner with journalctl
+    ├── aula01-distros.sh      ← Aula 01: distribuições e onde o Linux é usado
+    ├── aula02-boot.sh         ← Aula 02: processo de boot (BIOS→GRUB→Kernel→Init)
+    ├── aula03-fhs.sh          ← Aula 03: pwd, ls -las, /etc, /var/log, /bin
+    ├── aula04-permissoes.sh   ← Aula 04: chmod, chown, id — leitura de rwx
+    ├── aula05-pacotes.sh      ← Aula 05: apt-cache, dpkg -L, dpkg -S
+    ├── hello-linux.sh         ← Aula 06: variáveis, $(date), echo
+    ├── pipes-demo.sh          ← Aula 06: pipes |, redirecionadores > e >>
+    ├── aula07-crontab.sh      ← Aula 07: crontab -l, sintaxe dos 5 campos
+    ├── redes.sh               ← Aula 08: ping, nslookup, ifconfig, netstat
+    ├── aula09-usuarios.sh     ← Aula 09: id, cat /etc/passwd, useradd, usermod
+    ├── log-watcher.sh         ← Aula 10: tail, journalctl, grep
+    └── aula11-nginx.sh        ← Aula 11: systemctl, netstat, lab Nginx
 ```
 
 ---
@@ -66,129 +73,35 @@ chmod +x scripts/*.sh
 git clone https://github.com/your-username/devops-roadmap.git
 cd devops-roadmap/01-linux-fundamentals/scripts
 
-# Make scripts executable
+# Dar permissão de execução para todos os scripts (Aula 04)
 chmod +x *.sh
 
-# Run hello-linux
-./hello-linux.sh
-
-# Run system monitor
-./system-monitor.sh
-
-# Run log watcher (last 30 minutes)
-./log-watcher.sh 30
-
-# Run backup (source → destination)
-./backup.sh /home/user /tmp/backups
+# Siga na ordem das aulas:
+./aula01-distros.sh       # Aula 01 — distribuições Linux
+./aula02-boot.sh          # Aula 02 — processo de boot
+./aula03-fhs.sh           # Aula 03 — estrutura de diretórios
+./aula04-permissoes.sh    # Aula 04 — permissões chmod/chown
+./aula05-pacotes.sh       # Aula 05 — apt-cache, dpkg
+./hello-linux.sh          # Aula 06 — variáveis e $(comando)
+./pipes-demo.sh           # Aula 06 — pipes e redirecionadores
+./aula07-crontab.sh       # Aula 07 — agendamento com crontab
+./redes.sh                # Aula 08 — diagnóstico de rede
+./aula09-usuarios.sh      # Aula 09 — usuários e grupos
+./log-watcher.sh          # Aula 10 — logs e segurança
+./aula11-nginx.sh         # Aula 11 — lab final: servidor Nginx
 ```
 
----
-
----
-
-## 📤 Expected Output
-
-### `hello-linux.sh`
-
-```
-============================================
-         Hello, Linux World! 🐧
-============================================
-
-  Date     : Mon Jun  8 14:23:01 UTC 2026
-  User     : vitor
-  Hostname : debian-server
-  Directory: /home/vitor/scripts
-  Shell    : /bin/bash
-
-============================================
-```
-
-### `backup.sh`
-
-```
-[INFO] Starting backup...
-[INFO] Source    : /home/vitor
-[INFO] Destination: /tmp/backups/backup_2026-06-08_14-23-01
-[INFO] Timestamp : 2026-06-08_14-23-01
-
-[SUCCESS] Backup completed: /tmp/backups/backup_2026-06-08_14-23-01
-[INFO] Cleaning up backups older than 7 days in /tmp/backups...
-[INFO] Cleanup done.
-[INFO] Finished at: Mon Jun  8 14:23:05 UTC 2026
-```
-
-### `system-monitor.sh`
-
-```
-========================================
-  System Monitor Report
-  Mon Jun  8 14:23:01 UTC 2026
-========================================
-
-📦 Disk Usage
----
-Filesystem      Size  Used Avail Use% Mounted on
-/dev/sda1        20G  4.2G   15G  22% /
-
-🧠 Memory Usage
----
-              total        used        free
-Mem:           1.9G        812M        1.1G
-Swap:          975M          0B        975M
-
-⏱  Uptime & Load Average
----
- 14:23:01 up 2 days, 3:12, 1 user, load average: 0.05, 0.03, 0.01
-
-🔥 Top 5 Processes (by CPU)
----
-USER       PID  %CPU %MEM COMMAND
-root         1   0.0  0.3 /sbin/init
-...
-
-🌐 Listening Ports (TCP)
----
-tcp  0.0.0.0:22   LISTEN   sshd
-tcp  0.0.0.0:80   LISTEN   nginx
-```
-
-### `log-watcher.sh`
-
-```
-========================================
-  Log Watcher
-  Scanning last 10 minutes — Mon Jun  8 14:23:01 UTC 2026
-========================================
-
-📋 Recent System Events (last 10 min)
----
-Jun 8 14:20:15 hostname systemd[1]: Started Session 4 of user vitor.
-Jun 8 14:21:03 hostname sshd[1234]: Accepted publickey for vitor
-
-🚨 Failed Login Attempts
----
-No failed login attempts found.
-
-🔐 Auth Log (last 15 lines)
----
-Jun 8 14:20:15 hostname sshd[1234]: Accepted publickey for vitor from 192.168.1.10
-
-🛡  Sudo Commands Used
----
-Jun 8 14:22:01 hostname sudo: vitor : COMMAND=/usr/bin/apt update
-```
-
-> **Tip:** If output looks different on your machine, that's normal — system state varies. What matters is that the script runs without errors.
 
 ---
 
 ## 🔑 Key Takeaways
 
-- Linux permissions follow a **user / group / others** model — understand `chmod 755` before anything else
-- Everything in Linux is a file — hardware devices (`/dev/video0`), config files (`/etc/nginx`), even processes (`/proc`)
-- Shell scripts are the glue of DevOps — `crontab` + a `.sh` file = basic automation
-- `journalctl` is your best friend for debugging a production server
+- `#!/bin/bash` no topo — sem ela o sistema não sabe executar o script
+- `$(comando)` captura a saída de qualquer comando como valor de variável
+- `|` pipe encadeia comandos: saída de um vira entrada do próximo
+- `>>` acumula em arquivo, `>` sobrescreve — erre uma vez, lembre para sempre
+- `tail -f` e `journalctl -f` são seus melhores amigos em um servidor em produção
+- `crontab -e` + um `.sh` = automação básica sem depender de ninguém
 
 ---
 
