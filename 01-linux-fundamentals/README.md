@@ -47,21 +47,21 @@ chmod +x scripts/*.sh
 
 ```
 01-linux-fundamentals/
-├── README.md          ← you are here
-├── cheatsheet.md      ← quick command reference for all topics
+├── README.md            ← you are here
+├── cheatsheet.md        ← quick command reference for all topics
 └── scripts/
-    ├── aula01-distros.sh      ← Aula 01: distribuições e onde o Linux é usado
-    ├── aula02-boot.sh         ← Aula 02: processo de boot (BIOS→GRUB→Kernel→Init)
-    ├── aula03-fhs.sh          ← Aula 03: pwd, ls -las, /etc, /var/log, /bin
-    ├── aula04-permissoes.sh   ← Aula 04: chmod, chown, id — leitura de rwx
-    ├── aula05-pacotes.sh      ← Aula 05: apt-cache, dpkg -L, dpkg -S
-    ├── hello-linux.sh         ← Aula 06: variáveis, $(date), echo
-    ├── pipes-demo.sh          ← Aula 06: pipes |, redirecionadores > e >>
-    ├── aula07-crontab.sh      ← Aula 07: crontab -l, sintaxe dos 5 campos
-    ├── redes.sh               ← Aula 08: ping, nslookup, ifconfig, netstat
-    ├── aula09-usuarios.sh     ← Aula 09: id, cat /etc/passwd, useradd, usermod
-    ├── log-watcher.sh         ← Aula 10: tail, journalctl, grep
-    └── aula11-nginx.sh        ← Aula 11: systemctl, netstat, lab Nginx
+    ├── 01-distros.sh        ← Lesson 01: distributions and Linux philosophy
+    ├── 02-boot.sh           ← Lesson 02: boot process (BIOS→GRUB→Kernel→Init)
+    ├── 03-fhs.sh            ← Lesson 03: pwd, ls -las, /var/log, cd
+    ├── 04-permissions.sh    ← Lesson 04: chmod, id — reading rwx permissions
+    ├── 05-packages.sh       ← Lesson 05: apt-cache, dpkg -L, dpkg -S
+    ├── 06-variables.sh      ← Lesson 06: variables, $(date), echo
+    ├── 06-pipes.sh          ← Lesson 06: pipes |, redirectors > and >>
+    ├── 07-crontab.sh        ← Lesson 07: crontab -l, 5-field syntax
+    ├── 08-networking.sh     ← Lesson 08: ping, nslookup, ifconfig, netstat
+    ├── 09-users.sh          ← Lesson 09: id, cat /etc/passwd, useradd, usermod
+    ├── 10-logs.sh           ← Lesson 10: tail, journalctl, grep
+    └── 11-nginx.sh          ← Lesson 11: systemctl, netstat, Nginx lab
 ```
 
 ---
@@ -73,22 +73,22 @@ chmod +x scripts/*.sh
 git clone https://github.com/your-username/devops-roadmap.git
 cd devops-roadmap/01-linux-fundamentals/scripts
 
-# Dar permissão de execução para todos os scripts (Aula 04)
+# Grant execution permission to all scripts (Lesson 04)
 chmod +x *.sh
 
-# Siga na ordem das aulas:
-./aula01-distros.sh       # Aula 01 — distribuições Linux
-./aula02-boot.sh          # Aula 02 — processo de boot
-./aula03-fhs.sh           # Aula 03 — estrutura de diretórios
-./aula04-permissoes.sh    # Aula 04 — permissões chmod/chown
-./aula05-pacotes.sh       # Aula 05 — apt-cache, dpkg
-./hello-linux.sh          # Aula 06 — variáveis e $(comando)
-./pipes-demo.sh           # Aula 06 — pipes e redirecionadores
-./aula07-crontab.sh       # Aula 07 — agendamento com crontab
-./redes.sh                # Aula 08 — diagnóstico de rede
-./aula09-usuarios.sh      # Aula 09 — usuários e grupos
-./log-watcher.sh          # Aula 10 — logs e segurança
-./aula11-nginx.sh         # Aula 11 — lab final: servidor Nginx
+# Follow the lesson order:
+./01-distros.sh       # Lesson 01 — Linux distributions
+./02-boot.sh          # Lesson 02 — boot process
+./03-fhs.sh           # Lesson 03 — directory structure
+./04-permissions.sh   # Lesson 04 — chmod and permissions
+./05-packages.sh      # Lesson 05 — apt-cache, dpkg
+./06-variables.sh     # Lesson 06 — variables and $(command)
+./06-pipes.sh         # Lesson 06 — pipes and redirectors
+./07-crontab.sh       # Lesson 07 — task scheduling with crontab
+./08-networking.sh    # Lesson 08 — network diagnostics
+./09-users.sh         # Lesson 09 — users and groups
+./10-logs.sh          # Lesson 10 — logs and security
+./11-nginx.sh         # Lesson 11 — final lab: Nginx web server
 ```
 
 
