@@ -50,7 +50,8 @@ This isn't theory — it runs in my projects:
 ```
 02-git-github/
 ├── README.md       ← you are here
-└── cheatsheet.md   ← quick command reference for all topics
+├── cheatsheet.md   ← quick command reference for all topics
+└── examples/       ← real, reusable config (CI, Dependabot, PR & issue templates)
 ```
 
 ---

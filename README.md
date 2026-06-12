@@ -64,7 +64,8 @@ devops-roadmap/
 │
 ├── 02-git-github/             ✅ Complete
 │   ├── README.md              # What's covered + key concepts
-│   └── cheatsheet.md          # Git command reference
+│   ├── cheatsheet.md          # Git command reference
+│   └── examples/              # CI, Dependabot, PR & issue templates
 │
 ├── 03-docker/                 🔄 In progress
 ├── 04-cloud/                  ⏳ Planned
