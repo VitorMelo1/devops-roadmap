@@ -1,4 +1,4 @@
-# ☁️ Step 03 — Cloud (AWS / GCP)
+# ☁️ Step 04 — Cloud (AWS / GCP)
 
 > Status: ⏳ Planned
 

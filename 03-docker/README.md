@@ -1,4 +1,4 @@
-# 🐳 Step 02 — Docker
+# 🐳 Step 03 — Docker
 
 > Status: 🔄 In Progress
 

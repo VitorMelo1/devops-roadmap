@@ -1,4 +1,4 @@
-# ⚙️ Step 04 — CI/CD
+# ⚙️ Step 05 — CI/CD
 
 > Status: ⏳ Planned
 

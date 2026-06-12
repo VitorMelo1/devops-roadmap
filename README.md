@@ -3,9 +3,10 @@
 **My public learning journey toward a DevOps career**
 
 ![Linux](https://img.shields.io/badge/Step%2001-Linux%20✅-brightgreen?style=for-the-badge&logo=linux&logoColor=white)
-![Docker](https://img.shields.io/badge/Step%2002-Docker%20🔄-blue?style=for-the-badge&logo=docker&logoColor=white)
-![Cloud](https://img.shields.io/badge/Step%2003-Cloud%20⏳-lightgrey?style=for-the-badge&logo=amazonaws&logoColor=white)
-![CI/CD](https://img.shields.io/badge/Step%2004-CI%2FCD%20⏳-lightgrey?style=for-the-badge&logo=githubactions&logoColor=white)
+![Git & GitHub](https://img.shields.io/badge/Step%2002-Git%20%26%20GitHub%20✅-brightgreen?style=for-the-badge&logo=github&logoColor=white)
+![Docker](https://img.shields.io/badge/Step%2003-Docker%20🔄-blue?style=for-the-badge&logo=docker&logoColor=white)
+![Cloud](https://img.shields.io/badge/Step%2004-Cloud%20⏳-lightgrey?style=for-the-badge&logo=amazonaws&logoColor=white)
+![CI/CD](https://img.shields.io/badge/Step%2005-CI%2FCD%20⏳-lightgrey?style=for-the-badge&logo=githubactions&logoColor=white)
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)
 ![Tested on Ubuntu](https://img.shields.io/badge/Tested%20on-Ubuntu%2022.04-orange?style=flat-square&logo=ubuntu)
@@ -17,9 +18,10 @@
 | Step | Topic | Status | Folder |
 |------|-------|--------|--------|
 | 01 | 🐧 Linux Fundamentals | ✅ Complete | [01-linux-fundamentals →](./01-linux-fundamentals/) |
-| 02 | 🐳 Docker | 🔄 Next | [02-docker →](./02-docker/) |
-| 03 | ☁️ Cloud (AWS / GCP) | ⏳ Planned | [03-cloud →](./03-cloud/) |
-| 04 | ⚙️ CI/CD | ⏳ Planned | [04-ci-cd →](./04-ci-cd/) |
+| 02 | 🐙 Git & GitHub | ✅ Complete | [02-git-github →](./02-git-github/) |
+| 03 | 🐳 Docker | 🔄 In Progress | [03-docker →](./03-docker/) |
+| 04 | ☁️ Cloud (AWS / GCP) | ⏳ Planned | [04-cloud →](./04-cloud/) |
+| 05 | ⚙️ CI/CD | ⏳ Planned | [05-ci-cd →](./05-ci-cd/) |
 | 🎯 | 💼 DevOps Internship | 🎯 Goal | — |
 
 ---
@@ -36,7 +38,7 @@ cd 01-linux-fundamentals/scripts
 chmod +x *.sh
 
 # Run your first script
-./hello-linux.sh
+./01-distros.sh
 ```
 
 > **Recommended OS:** Ubuntu 20.04+ or Debian 11+. See each step's README for specific prerequisites.
@@ -58,15 +60,15 @@ devops-roadmap/
 ├── 01-linux-fundamentals/     ✅ Complete
 │   ├── README.md              # What's covered + key concepts
 │   ├── cheatsheet.md          # Quick command reference
-│   └── scripts/
-│       ├── hello-linux.sh     # First shell script
-│       ├── backup.sh          # Automated backup with crontab
-│       ├── system-monitor.sh  # Disk, memory, uptime report
-│       └── log-watcher.sh     # Security log analysis
+│   └── scripts/               # 11 lesson scripts (01-distros … 11-nginx)
 │
-├── 02-docker/                 🔄 Coming next
-├── 03-cloud/                  ⏳ Planned
-└── 04-ci-cd/                  ⏳ Planned
+├── 02-git-github/             ✅ Complete
+│   ├── README.md              # What's covered + key concepts
+│   └── cheatsheet.md          # Git command reference
+│
+├── 03-docker/                 🔄 In progress
+├── 04-cloud/                  ⏳ Planned
+└── 05-ci-cd/                  ⏳ Planned
 ```
 
 ---
